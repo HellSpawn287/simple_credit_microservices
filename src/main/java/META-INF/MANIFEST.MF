@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: com.hellspawn287.simple_credit_microservices.SimpleCreditMic
+ roservicesApplication
+
