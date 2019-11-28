@@ -27,6 +27,8 @@
 
 		<!--Setting the name of project-->
 		<docker.image.name>springboot-docker-mysql</docker.image.name>
+		<database>springboot_mysql</database>
+		<port>8081</port>
 	</properties>
 
 	<dependencies>
@@ -182,10 +184,18 @@
 
 					<dockerHost>tcp:localhost:2376</dockerHost>
 					<!--<dockerHost>npipe:////./pipe/docker_engine</dockerHost>-->
-					<certPath>~\.docker\machine\machines\default</certPath>
-					<dockerHost>unix:///var/run/docker.sock</dockerHost>
-
+					<certPath>src/main/dockerCerts</certPath>
+					<useColor>true</useColor>
 					<verbose>true</verbose>
+					<machine>
+						<name>maven</name>
+						<autoCreate>true</autoCreate>
+						<createOptions>
+							<driver>virtualbox</driver>
+							<virtualbox-cpu-count>2</virtualbox-cpu-count>
+						</createOptions>
+					</machine>
+
 					<images>
 						<image>
 							<name>${docker.image.prefix}/${docker.image.name}</name>
@@ -215,13 +225,13 @@
 									<name>mysql:8.0.2</name>
 									<run>
 										<ports>
-											<port>${database.port}:3306</port>
+											<port>tomcat.port:3306</port>
 										</ports>
 										<env>
-											<MYSQL_DATABASE>mydb</MYSQL_DATABASE>
-											<MYSQL_USER>myuser</MYSQL_USER>
-											<MYSQL_PASSWORD>mypass</MYSQL_PASSWORD>
-											<MYSQL_ROOT_PASSWORD>myrootpass</MYSQL_ROOT_PASSWORD>
+											<MYSQL_DATABASE>springboot_mysql</MYSQL_DATABASE>
+											<MYSQL_USER>user</MYSQL_USER>
+											<MYSQL_PASSWORD>password</MYSQL_PASSWORD>
+											<MYSQL_ROOT_PASSWORD>password</MYSQL_ROOT_PASSWORD>
 										</env>
 										<volumes>
 											<bind>
